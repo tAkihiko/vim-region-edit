@@ -12,6 +12,13 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 		return
 	endif
 
+	if &mod != 0
+		echohl Error
+		echo "•Û‘¶‚µ‚Ä‚­‚¾‚³‚¢"
+		echohl None
+		return
+	endif
+
 	let l:line_list = []
 	for l:lnum in range(a:begin, a:end)
 		let l:line = getline(l:lnum)
