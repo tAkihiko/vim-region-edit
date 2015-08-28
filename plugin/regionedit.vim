@@ -4,6 +4,8 @@
 " Licence: MIT
 "
 
+scriptencoding utf-8
+
 command! -range=% -nargs=* RegionEdit call <SID>StartPatternRegionEdit(<line1>, <line2>, <q-args>)
 command! EndRegionEdit call <SID>EndPatternRegionEdit()
 
@@ -14,7 +16,7 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 
 	if &mod != 0
 		echohl Error
-		echo "•Û‘¶‚µ‚Ä‚­‚¾‚³‚¢"
+		echo "ä¿å­˜ã—ã¦ãã ã•ã„"
 		echohl None
 		return
 	endif
@@ -45,7 +47,7 @@ endfunction
 function! s:EndPatternRegionEdit()
 	if  !exists('b:RegionEdit')
 		echohl Error
-		echo "•ÒW’†‚Ì‚à‚Ì‚ª‚ ‚è‚Ü‚¹‚ñ"
+		echo "ç·¨é›†ä¸­ã®ã‚‚ã®ãŒã‚ã‚Šã¾ã›ã‚“"
 		echohl None
 		return
 	endif
@@ -58,7 +60,7 @@ function! s:EndPatternRegionEdit()
 	echo len(l:line_list)
 	if len(b:RegionEditList) != len(l:line_list)
 		echohl Error
-		echo "s”‚ª‚¿‚ª‚¢‚Ü‚·"
+		echo "è¡Œæ•°ãŒã¡ãŒã„ã¾ã™"
 		echohl None
 		return
 	endif

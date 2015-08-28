@@ -1,24 +1,24 @@
 vim-region-edit
 ===============
 
-�T�v
+概要
 ----
 
-Region Edit �Ƃ����p�^�[���������Ĉ�v�����s������������������܂����B
+Region Edit といいつつパターン検索して一致した行を検索したいから作りました。
 
 ```
 :RegionEdit {pat}
 ```
 
-�� `{pat}` ���܂ލs�𒊏o���A
+で `{pat}` を含む行を抽出し、
 
 ```
 :EndRegionEdit
 ```
 
-�Ŗ߂�܂��B
+で戻ります。
 
-���s���Ή��B
+改行未対応。
 
 Licence
 -------
@@ -28,5 +28,5 @@ MIT
 TODO
 ----
 
-* �͈͑I���݂͍̂s��u�������čs���ϓ������e����B
-* �����Ƃ��� Vim Script �̗��V�ɉ���
+* 範囲選択のみは行を置き換えて行数変動を許容する。
+* ちゃんとした Vim Script の流儀に沿う
