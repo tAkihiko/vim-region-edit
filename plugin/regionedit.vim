@@ -10,7 +10,7 @@ command! -range=% -nargs=* RegionEdit call <SID>StartPatternRegionEdit(<line1>, 
 command! EndRegionEdit call <SID>EndRegionEdit()
 
 function! s:StartPatternRegionEdit(begin, end, pat)
-	if exists('b:RegionEdit')
+	if exists('b:RegionEditFile')
 		return
 	endif
 
@@ -44,7 +44,7 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 
 	0 delete _
 
-	let b:RegionEdit = l:fname
+	let b:RegionEditFile = l:fname
 	let b:RegionEditList = l:line_list
 
 	if len(a:pat) > 0
@@ -55,7 +55,7 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 endfunction
 
 function! s:EndRegionEdit()
-	if  !exists('b:RegionEdit')
+	if  !exists('b:RegionEditFile') || !exists('b:RegionEditList') || !exists('b:RegionEditMode')
 		echohl Error
 		echo "編集中のものがありません"
 		echohl None
@@ -67,26 +67,44 @@ function! s:EndRegionEdit()
 		let l:line_list += [getline(l:lnum)]
 	endfor
 
-	echo len(l:line_list)
-	if len(b:RegionEditList) != len(l:line_list)
-		echohl Error
-		echo "行数がちがいます"
-		echohl None
-		return
-	endif
-
 	let l:line_prev_list = b:RegionEditList
-	let l:fname = b:RegionEdit
+	let l:fname = b:RegionEditFile
 
-	execute 'edit' l:fname
-	setlocal buftype=
-
-	let l:lcnt = 0
-	for l:line in l:line_prev_list
-		if l:line[1] != l:line_list[l:lcnt]
-			call setline(l:line[0], l:line_list[l:lcnt])
+	if b:RegionEditMode == 0
+		if len(b:RegionEditList) != len(l:line_list)
+			echohl Error
+			echo "行数がちがいます"
+			echohl None
+			return
 		endif
-		let l:lcnt += 1
-	endfor
+
+		execute 'edit' l:fname
+		setlocal buftype=
+
+		let l:lcnt = 0
+		for l:line in l:line_prev_list
+			if l:line[1] != l:line_list[l:lcnt]
+				call setline(l:line[0], l:line_list[l:lcnt])
+			endif
+			let l:lcnt += 1
+		endfor
+
+	elseif b:RegionEditMode == 1
+
+		execute 'edit' l:fname
+		setlocal buftype=
+
+		let l:begin = l:line_prev_list[0][0]
+		let l:end = l:line_prev_list[-1][0]
+		
+		for l:lcnt in l:line_prev_list
+			execute l:begin "delete" "_"
+		endfor
+
+		for l:line in reverse(l:line_list)
+			call append(l:begin - 1, l:line)
+		endfor
+
+	endif
 
 endfunction
