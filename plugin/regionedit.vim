@@ -14,7 +14,7 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 		return
 	endif
 
-	if &mod != 0
+	if &modified != 0
 		echohl Error
 		echo "保存してください"
 		echohl None
