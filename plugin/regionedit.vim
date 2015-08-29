@@ -7,7 +7,7 @@
 scriptencoding utf-8
 
 command! -range=% -nargs=* RegionEdit call <SID>StartPatternRegionEdit(<line1>, <line2>, <q-args>)
-command! EndRegionEdit call <SID>EndPatternRegionEdit()
+command! EndRegionEdit call <SID>EndRegionEdit()
 
 function! s:StartPatternRegionEdit(begin, end, pat)
 	if exists('b:RegionEdit')
@@ -44,7 +44,7 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 	setlocal buftype=nowrite
 endfunction
 
-function! s:EndPatternRegionEdit()
+function! s:EndRegionEdit()
 	if  !exists('b:RegionEdit')
 		echohl Error
 		echo "編集中のものがありません"
