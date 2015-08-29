@@ -73,7 +73,9 @@ function! s:EndPatternRegionEdit()
 
 	let l:lcnt = 0
 	for l:line in l:line_prev_list
-		call setline(l:line[0], l:line_list[l:lcnt])
+		if l:line[1] != l:line_list[l:lcnt]
+			call setline(l:line[0], l:line_list[l:lcnt])
+		endif
 		let l:lcnt += 1
 	endfor
 
