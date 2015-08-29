@@ -30,8 +30,13 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 	endfor
 
 	let l:fname = expand('%')
+	let l:ft = &filetype
 
 	edit `=tempname()`
+	setlocal buftype=nowrite
+	setlocal noswapfile
+	file [Region Edit]
+	let &filetype = l:ft
 
 	for l:line_node in l:line_list
 		call append(line('$'), l:line_node[1])
@@ -41,7 +46,12 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 
 	let b:RegionEdit = l:fname
 	let b:RegionEditList = l:line_list
-	setlocal buftype=nowrite
+
+	if len(a:pat) > 0
+		let b:RegionEditMode = 0
+	else
+		let b:RegionEditMode = 1
+	endif
 endfunction
 
 function! s:EndRegionEdit()
