@@ -29,6 +29,13 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 		endif
 	endfor
 
+	if len(l:line_list) < 1
+		echohl Error
+		echo "対象の行がありません"
+		echohl None
+		return
+	endif
+
 	let l:fname = expand('%')
 	let l:ft = &filetype
 
