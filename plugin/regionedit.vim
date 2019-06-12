@@ -7,7 +7,6 @@
 scriptencoding utf-8
 
 command! -range=% -nargs=* RegionEdit call <SID>StartPatternRegionEdit(<line1>, <line2>, <q-args>)
-command! EndRegionEdit call <SID>EndRegionEdit()
 
 function! s:StartPatternRegionEdit(begin, end, pat)
 	if exists('b:RegionEditFile')
@@ -44,6 +43,7 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 	setlocal noswapfile
 	file [Region Edit]
 	let &filetype = l:ft
+	command! -buffer EndRegionEdit call <SID>EndRegionEdit()
 
 	for l:line_node in l:line_list
 		call append(line('$'), l:line_node[1])
