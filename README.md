@@ -7,6 +7,8 @@ vim-region-edit
 範囲を選択してその範囲内だけ編集するためのプラグインです。
 パターン検索して一致した行を抽出してそこだけ編集もできます。
 
+![RegionEdit](https://raw.githubusercontent.com/tAkihiko/vim-region-edit/master/ss1.gif)
+
 ### パターン検索編集
 
 そのまま or 範囲選択して
