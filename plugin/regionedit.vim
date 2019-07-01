@@ -96,6 +96,8 @@ function! s:EndRegionEdit()
 			let l:lcnt += 1
 		endfor
 
+		close
+
 	elseif b:RegionEditMode == 1
 
 		execute 'edit' l:fname
@@ -111,6 +113,8 @@ function! s:EndRegionEdit()
 		for l:line in reverse(l:line_list)
 			call append(l:begin - 1, l:line)
 		endfor
+
+		close
 
 	endif
 
