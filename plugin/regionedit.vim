@@ -38,7 +38,7 @@ function! s:StartPatternRegionEdit(begin, end, pat)
 	let l:fname = expand('%')
 	let l:ft = &filetype
 
-	edit `=tempname()`
+	rightbelow vnew `=tempname()`
 	setlocal buftype=nowrite
 	setlocal noswapfile
 	file [Region Edit]
